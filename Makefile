@@ -1,6 +1,8 @@
 default:
-	go build ./...
+	-rm -rf monitor
+	mkdir monitor
+	go build -o monitor ./...
 run:
-	./test
+	./monitor/pkg
 clean:
 	find -type f -executable -exec rm {} \;
