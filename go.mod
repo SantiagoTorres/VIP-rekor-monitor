@@ -1,4 +1,4 @@
-module test/test
+module github.com/SantiagoTorres/vip-rekor-monitor
 
 go 1.18
 

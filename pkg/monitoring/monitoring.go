@@ -1,13 +1,13 @@
-package main
+package monitoring
 
 import (
-    "fmt"
     "github.com/sigstore/rekor/pkg/client"
 )
 
-func main() {
-    fmt.Println("Hello world!")
+// TODO: no error handling?!
+// TODO: hardcoded parameter (URL)
+func GetLogSize() int64 {
     rekorClient, _ := client.GetRekorClient("https://rekor.sigstore.dev")
     logInfo, _ := rekorClient.Tlog.GetLogInfo(nil)
-    fmt.Printf("LogInfo Ok\nTree Size: %v!\n", *logInfo.Payload.TreeSize)
+    return *logInfo.Payload.TreeSize
 }
