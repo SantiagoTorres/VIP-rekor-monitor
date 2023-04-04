@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tree_verify (
     Timestamp TIMESTAMP,
     Tree_Head VARCHAR(32),
     Tree_Size INT,
-    Root_Hash VARCHAR(32),
+    Root_Hash VARCHAR(32)
 );
 
 -- check if the database and table were created successfully
