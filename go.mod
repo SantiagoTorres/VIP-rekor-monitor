@@ -2,7 +2,10 @@ module github.com/SantiagoTorres/vip-rekor-monitor
 
 go 1.18
 
-require github.com/sigstore/rekor v1.0.1
+require (
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/sigstore/rekor v1.0.1
+)
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d // indirect
