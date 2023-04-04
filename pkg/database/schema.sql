@@ -2,12 +2,11 @@ CREATE DATABASE IF NOT EXISTS monitor;
 USE monitor;
 
 CREATE TABLE IF NOT EXISTS tree_verify (
-    Tree_ID VARCHAR(100) PRIMARY KEY,
+    Tree_ID VARCHAR(32), 
     Timestamp TIMESTAMP,
-    Tree_Head VARCHAR(100),
+    Tree_Head VARCHAR(32),
     Tree_Size INT,
-    Root_Hash VARCHAR(100),
-    size_of_update INT
+    Root_Hash VARCHAR(32),
 );
 
 -- check if the database and table were created successfully
