@@ -1,7 +1,8 @@
+GO ?= go 
 default:
 	-rm -rf monitor
 	mkdir monitor
-	go build -o monitor ./...
+	$(GO) build -o monitor ./...
 run:
 	./monitor/pkg
 clean:
