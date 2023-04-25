@@ -1,13 +1,13 @@
 package monitoring
 
 import (
-	"time"
-	"fmt"
 	"database/sql"
-    "github.com/sigstore/rekor/pkg/client"
-	"github.com/sigstore/rekor/pkg/generated/models"
-	_ "github.com/go-sql-driver/mysql"
+	"fmt"
+	"time"
 
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/sigstore/rekor/pkg/client"
+	"github.com/sigstore/rekor/pkg/generated/models"
 )
 
 // TODO: no error handling?!
@@ -17,7 +17,7 @@ import (
     logInfo, _ := rekorClient.Tlog.GetLogInfo(nil)
     return *logInfo.Payload.TreeSize
 }*/
-const timeFormat = "2010-01-01 20:01:00" 
+const timeFormat = "2010-01-01 20:01:00"
 
 func GetLogInfoResp() (*models.LogInfo, error) {
 
@@ -38,12 +38,26 @@ func InsertIntoDB(logInfoResp *models.LogInfo) error {
 		return err
 	}
 
-	 stmt := "INSERT INTO tree_verify VALUES (?, ?, ?, ?, ?)"
-	 result, err := db.Exec(stmt, *logInfoResp.TreeID, time.Now().Format(timeFormat), 
-							*logInfoResp.SignedTreeHead, *logInfoResp.TreeSize, *logInfoResp.RootHash)
+	stmt := "INSERT INTO tree_verify VALUES (?, ?, ?, ?, ?)"
+	result, err := db.Exec(stmt, *logInfoResp.TreeID, time.Now().Format(timeFormat),
+		*logInfoResp.SignedTreeHead, *logInfoResp.TreeSize, *logInfoResp.RootHash)
 	if err != nil {
 		return err
 	}
 	fmt.Println(result)
 	return nil
-} 
+}
+
+// Function that reads the latest records from the database (show this function to the user)
+func getLatestRecordFromDB() {
+	db, err := sql.Open("mysql", "root@tcp(localhost:3306)/monitor")
+	if err != nil {
+		return err
+	}
+
+	stmt := "SELECT * FROM tree_verify WHERE Timestamp=(SELECT max(Timestamp) FROM tree_verify)"
+
+	fmt.Println("[DEBUG] stmt:" + stmt)
+
+	return stmt
+}
